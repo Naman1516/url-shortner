@@ -1,34 +1,25 @@
 const express = require("express");
+const morgan = require("morgan");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const mongoose = require("mongoose");
-const UrlSchema = require("./schema/Url");
+const { connectToDatabase } = require("./utils/utils");
+const urlRoutes = require("./routes/urlRoutes");
 
 dotenv.config();
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+// Middlewares
+app.use(morgan("tiny"));
+app.use(cors());
+app.use(express.json());
 
 // DB Connection
-mongoose
-  .connect(process.env.MONGO_URI, {
-    dbName: "mydb",
-  })
-  .then(() => {
-    console.log("DB Connected");
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+connectToDatabase();
 
-app.get("/all", async (req, res, next) => {
-  try {
-    const data = await UrlSchema.find().exec();
-    res.json(data);
-  } catch (error) {
-    next(error);
-  }
-});
+// Routes
+app.use("/api", urlRoutes);
+
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);
