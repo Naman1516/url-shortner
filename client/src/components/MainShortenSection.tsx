@@ -44,19 +44,23 @@ const MainShortenSection = (props: InputProps) => {
             <input
               type="text"
               placeholder="https://rufbuk.com/"
-              className="rounded-full pr-44 w-full h-16 px-4 py-6 pl-12 bg-[#181e29] border-4 border-[#353c4a] placeholder:text-[#c9ced6] caret-[#EB568E]"
+              className="rounded-full pr-16 lg:pr-44 w-full h-16 px-4 py-6 pl-12 bg-[#181e29] border-4 border-[#353c4a] placeholder:text-[#c9ced6] caret-[#EB568E]"
               value={url}
               onChange={(event) => setUrl(event.target.value)}
             />
-            <PrimaryButton
-              type="submit"
-              callback={(event: FormEvent) => handleShortenUrl(event)}
-              disabled={isLoading || !url}
-              className="inset-y-2 right-2 hidden lg:block"
-            >
-              <span>{isLoading && <SpinnerIcon height={24} width={24} />}</span>
-              <span>{props.btnText}</span>
-            </PrimaryButton>
+            <div className="hidden lg:block">
+              <PrimaryButton
+                type="submit"
+                callback={(event: FormEvent) => handleShortenUrl(event)}
+                disabled={isLoading || !url}
+                className="inset-y-2 right-2"
+              >
+                <span>
+                  {isLoading && <SpinnerIcon height={24} width={24} />}
+                </span>
+                <span>{props.btnText}</span>
+              </PrimaryButton>
+            </div>
             <PrimaryButton
               type="submit"
               callback={(event: FormEvent) => handleShortenUrl(event)}
