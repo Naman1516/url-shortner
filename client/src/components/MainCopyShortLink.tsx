@@ -43,7 +43,7 @@ const MainCopyShortLink = (props: CopyProps) => {
       </div>
       <PrimaryButton
         callback={handleCopy}
-        className="inset-y-1 right-1 gap-2 w-12 lg:hidden"
+        className="inset-y-1 right-1 gap-2 w-4 lg:hidden"
         disabled={isCopied}
       >
         {isCopied ? <FileCheck2 size={16} /> : <Copy size={16} />}
