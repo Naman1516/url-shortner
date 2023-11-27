@@ -12,7 +12,7 @@ type InputProps = {
 const MainShortenSection = (props: InputProps) => {
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [shortLink, setShortLink] = useState("k");
+  const [shortLink, setShortLink] = useState("");
 
   const { generate } = useGenerateShortenUrl();
 
