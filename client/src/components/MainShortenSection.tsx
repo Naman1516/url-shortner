@@ -61,7 +61,7 @@ const MainShortenSection = (props: InputProps) => {
               type="submit"
               callback={(event: FormEvent) => handleShortenUrl(event)}
               disabled={isLoading || !url}
-              className="inset-y-2 right-2 lg:hidden w-1"
+              className="inset-y-2 right-2 lg:hidden w-[40px]"
             >
               <span>
                 {isLoading ? (
