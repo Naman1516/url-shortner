@@ -7,3 +7,4 @@ router.post("/short", UrlController.shortenUrl);
 router.get("/:urlId", UrlController.redirectToOriginalUrl);
 
 module.exports = router;
+
