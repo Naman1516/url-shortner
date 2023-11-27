@@ -13,7 +13,6 @@ const getAllUrls = async (req, res, next) => {
 
 const shortenUrl = async (req, res) => {
   const { origUrl } = req.body;
-  const urlId = shortid.generate();
 
   if (validateUrl(origUrl)) {
     try {
@@ -22,6 +21,7 @@ const shortenUrl = async (req, res) => {
       if (url) {
         res.json(url);
       } else {
+        const urlId = shortid.generate();
         url = await UrlService.createShortenedUrl(origUrl, urlId);
 
         res.json(url);
@@ -37,7 +37,8 @@ const shortenUrl = async (req, res) => {
 
 const redirectToOriginalUrl = async (req, res) => {
   const { urlId } = req.params;
-  const details = await UrlService.findUrlByOriginal(urlId);
+  console.log({ urlId });
+  const details = await UrlService.findByUrlId(urlId);
   console.log({ details });
   if (details) {
     const { origUrl } = details;
