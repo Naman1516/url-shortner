@@ -42,6 +42,7 @@ const redirectToOriginalUrl = async (req, res) => {
   console.log({ details });
   if (details) {
     const { origUrl } = details;
+    await UrlService.incrementClickCount(urlId);
     res.redirect(origUrl);
   } else {
     res.status(404).json("Invalid URL Id");

@@ -15,6 +15,17 @@ const findByUrlId = async (urlId) => {
   return await Url.findOne({ urlId });
 };
 
+const incrementClickCount = async (urlId) => {
+  return await Url.updateOne(
+    { urlId },
+    {
+      $inc: {
+        clicks: 1,
+      },
+    }
+  );
+};
+
 const createShortenedUrl = async (origUrl, urlId) => {
   const url = new Url({
     origUrl,
@@ -32,4 +43,5 @@ module.exports = {
   findUrlByOriginal,
   findByUrlId,
   createShortenedUrl,
+  incrementClickCount,
 };
