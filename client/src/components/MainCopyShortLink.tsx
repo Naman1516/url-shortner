@@ -25,20 +25,29 @@ const MainCopyShortLink = (props: CopyProps) => {
   };
 
   return (
-    <div className="w-1/2 rounded-full h-16 flex items-center justify-between px-4 border-4 border-[#353c4a] bg-[#181e29] text-white relative">
+    <div className="w-10/12 md:w-1/2 rounded-full h-16 flex items-center justify-between px-4 border-4 border-[#353c4a] bg-[#181e29] text-white relative">
       <div>
         <p>{shortLink}</p>
       </div>
-      <div>
+      <div className="hidden lg:block">
         <PrimaryButton
           callback={handleCopy}
           className="inset-y-1 right-1 gap-2"
           disabled={isCopied}
         >
-          {isCopied ? <FileCheck2 size={16} /> : <Copy size={16} />}
+          <span>
+            {isCopied ? <FileCheck2 size={16} /> : <Copy size={16} />}
+          </span>
           <span>{isCopied ? "Copied!" : "Copy"}</span>
         </PrimaryButton>
       </div>
+      <PrimaryButton
+        callback={handleCopy}
+        className="inset-y-1 right-1 gap-2 w-12 lg:hidden"
+        disabled={isCopied}
+      >
+        {isCopied ? <FileCheck2 size={16} /> : <Copy size={16} />}
+      </PrimaryButton>
     </div>
   );
 };

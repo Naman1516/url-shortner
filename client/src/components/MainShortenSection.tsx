@@ -1,6 +1,6 @@
 import SpinnerIcon from "@/assets/icons/SpinnerIcon";
 import useGenerateShortenUrl from "@/custom-hooks/useGenerateShortenUrl";
-import { Link } from "lucide-react";
+import { ArrowRight, Link } from "lucide-react";
 import { FormEvent, useState } from "react";
 import MainCopyShortLink from "@/components/MainCopyShortLink";
 import PrimaryButton from "@/buttons/PrimaryButton";
@@ -39,7 +39,7 @@ const MainShortenSection = (props: InputProps) => {
         <MainCopyShortLink shortLink={shortLink} />
       ) : (
         <>
-          <form className="relative w-1/2 flex items-center justify-center text-white">
+          <form className="relative w-10/12 md:w-1/2 flex items-center justify-center text-white">
             <Link size={16} color="#C9CED6" className="absolute left-6" />
             <input
               type="text"
@@ -52,10 +52,24 @@ const MainShortenSection = (props: InputProps) => {
               type="submit"
               callback={(event: FormEvent) => handleShortenUrl(event)}
               disabled={isLoading || !url}
-              className="inset-y-2 right-2"
+              className="inset-y-2 right-2 hidden lg:block"
             >
               <span>{isLoading && <SpinnerIcon height={24} width={24} />}</span>
               <span>{props.btnText}</span>
+            </PrimaryButton>
+            <PrimaryButton
+              type="submit"
+              callback={(event: FormEvent) => handleShortenUrl(event)}
+              disabled={isLoading || !url}
+              className="inset-y-2 right-2 lg:hidden w-12"
+            >
+              <span>
+                {isLoading ? (
+                  <SpinnerIcon height={20} width={20} />
+                ) : (
+                  <ArrowRight size={20} />
+                )}
+              </span>
             </PrimaryButton>
           </form>
         </>
