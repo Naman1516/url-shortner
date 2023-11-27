@@ -17,7 +17,7 @@ app.use(express.json());
 connectToDatabase();
 
 // Routes
-app.use("/api", urlRoutes);
+app.use("/", urlRoutes);
 
 const PORT = process.env.PORT;
 
