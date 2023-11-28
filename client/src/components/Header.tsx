@@ -1,4 +1,4 @@
-import { BRAND_NAME } from "@/utils/constants";
+import { BRAND_NAME } from "@/utils/constants/constants";
 
 const Header = () => {
   return (

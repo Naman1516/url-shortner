@@ -1,9 +1,9 @@
-import SpinnerIcon from "@/assets/icons/SpinnerIcon";
-import useGenerateShortenUrl from "@/custom-hooks/useGenerateShortenUrl";
+import SpinnerIcon from "@/components/icons/SpinnerIcon";
+import useGenerateShortenUrl from "@/utils/custom-hooks/useGenerateShortenUrl";
 import { ArrowRight, Link } from "lucide-react";
 import { FormEvent, useState } from "react";
 import MainCopyShortLink from "@/components/MainCopyShortLink";
-import PrimaryButton from "@/buttons/PrimaryButton";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
 
 type InputProps = {
   btnText: string;

@@ -1,5 +1,5 @@
-import PrimaryButton from "@/buttons/PrimaryButton";
-import useCopyToClipboard from "@/custom-hooks/useCopyToClipboard";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
+import useCopyToClipboard from "@/utils/custom-hooks/useCopyToClipboard";
 import { Copy, FileCheck2 } from "lucide-react";
 import { useState } from "react";
 
