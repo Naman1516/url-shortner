@@ -5,7 +5,7 @@ import { SUBTEXT, TAGLINE } from "@/utils/constants";
 
 const Main = () => {
   return (
-    <main className="flex flex-col items-center justify-center gap-10 h-screen">
+    <main className="flex flex-col items-center justify-center gap-10 h-screen box-border">
       <MainTagline tagline={TAGLINE} />
       <MainSubText subtext={SUBTEXT} />
       <MainShortenSection btnText="Shorten Me!" />
