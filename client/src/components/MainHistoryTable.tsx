@@ -18,6 +18,7 @@ import {
   SortingState,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import { Copy } from "lucide-react";
 import { useState } from "react";
 
 const MainHistoryTable = () => {
@@ -26,12 +27,27 @@ const MainHistoryTable = () => {
 
   // table
   const columns: ColumnDef<UrlObject>[] = [
-    { header: "ID", accessorKey: "_id" },
-    { header: "Url ID", accessorKey: "urlId" },
-    { header: "Original Url", accessorKey: "origUrl" },
-    { header: "Short Url", accessorKey: "shortUrl" },
+    {
+      header: "Short Link",
+      accessorKey: "shortUrl",
+      cell: (el) => (
+        <span className="flex items-center justify-between">
+          {el.row.original.shortUrl}{" "}
+          <button className="bg-[#1c283fb0] p-3 rounded-full hover:bg-[#1c283f00]">
+            <Copy size={16} />
+          </button>
+        </span>
+      ),
+    },
+    { header: "Original Link", accessorKey: "origUrl" },
     { header: "Clicks", accessorKey: "clicks", enableSorting: true },
-    { header: "Created At", accessorKey: "date" },
+    {
+      header: "Created",
+      accessorKey: "date",
+      cell: (el) => {
+        return new Date(el.row.original.date).toLocaleDateString();
+      },
+    },
   ];
   const allUrlsTable = useReactTable({
     data,
@@ -47,14 +63,14 @@ const MainHistoryTable = () => {
 
   return (
     <div className="w-11/12 text-white mt-20">
-      <Table className="bg-[#181e29] border-4 border-[#353c4a]">
-        <TableHeader>
+      <Table className="border-[#353c4a]">
+        <TableHeader className="rounded-sm">
           {allUrlsTable.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
-                  className="text-white font-bold text-center cursor-pointer"
+                  className="text-white font-semi-bold cursor-pointer bg-[#181e29]"
                 >
                   {header.isPlaceholder ? null : (
                     <div>
@@ -75,11 +91,12 @@ const MainHistoryTable = () => {
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() ? "selected" : undefined}
+                className="border-[#353c4a]"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className="max-w-xs text-ellipsis overflow-clip ..."
+                    className="text-ellipsis overflow-clip ..."
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
