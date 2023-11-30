@@ -17,6 +17,7 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 type DataTableProps = {
   data: Array<UrlObject>;
@@ -86,18 +87,32 @@ const DataTable = (props: DataTableProps) => {
           )}
         </TableBody>
       </Table>
-      <button
-        onClick={() =>
-          dataTable.getCanPreviousPage() && dataTable.previousPage()
-        }
-      >
-        Prev Page
-      </button>
-      <button
-        onClick={() => dataTable.getCanNextPage() && dataTable.nextPage()}
-      >
-        Next Page
-      </button>
+      <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex-1 text-sm text-muted-foreground">
+          {dataTable.getFilteredSelectedRowModel().rows.length} of{" "}
+          {dataTable.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+        <div className="space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-transparent"
+            onClick={() => dataTable.previousPage()}
+            disabled={!dataTable.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-transparent"
+            onClick={() => dataTable.nextPage()}
+            disabled={!dataTable.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
+      </div>
     </>
   );
 };

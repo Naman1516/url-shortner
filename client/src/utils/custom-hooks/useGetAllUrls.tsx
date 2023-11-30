@@ -1,7 +1,6 @@
 import { API_BASE_URL } from "@/utils/constants/constants";
 import axios from "axios";
 import { setAllUrls } from "@/utils/store/urlSlice";
-import { useEffect } from "react";
 import { useAppDispatch } from "@/utils/store/appStore";
 
 export const useGetAllUrls = () => {
@@ -18,7 +17,5 @@ export const useGetAllUrls = () => {
     }
   };
 
-  useEffect(() => {
-    getAllUrls();
-  }, []);
+  return getAllUrls;
 };

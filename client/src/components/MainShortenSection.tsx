@@ -4,6 +4,7 @@ import { ArrowRight, Link } from "lucide-react";
 import { FormEvent, useState } from "react";
 import MainCopyShortLink from "@/components/MainCopyShortLink";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
+import { useGetAllUrls } from "@/utils/custom-hooks/useGetAllUrls";
 
 type InputProps = {
   btnText: string;
@@ -13,6 +14,7 @@ const MainShortenSection = (props: InputProps) => {
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [shortLink, setShortLink] = useState("");
+  const getAllUrls = useGetAllUrls();
 
   const { generate } = useGenerateShortenUrl();
 
@@ -27,6 +29,7 @@ const MainShortenSection = (props: InputProps) => {
     }
     setUrl("");
     setIsLoading(false);
+    getAllUrls();
   };
 
   const clearshortLink = () => {

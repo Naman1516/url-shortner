@@ -6,7 +6,7 @@ type CopyActionButtonProps = {
   shortUrl: string;
 };
 
-const CopyActionButton = (props: CopyActionButtonProps) => {
+const DataTableCopyActionButton = (props: CopyActionButtonProps) => {
   const { shortUrl } = props;
   const [isCopied, setIsCopied] = useState(false);
   const { copyToClipboard } = useCopyToClipboard();
@@ -33,4 +33,4 @@ const CopyActionButton = (props: CopyActionButtonProps) => {
   );
 };
 
-export default CopyActionButton;
+export default DataTableCopyActionButton;

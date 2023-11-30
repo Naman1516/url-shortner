@@ -3,7 +3,7 @@ import { UrlObject } from "@/interfaces/urlObject";
 import { useAppSelector } from "@/utils/store/appStore";
 import { ColumnDef } from "@tanstack/react-table";
 import DataTable from "./datatable/DataTable";
-import CopyActionButton from "./datatable/CopyActionButton";
+import DataTableCopyActionButton from "./datatable/DataTableCopyActionButton";
 
 const MainHistoryTable = () => {
   const { allUrls: data }: AllUrls = useAppSelector((store) => store.url);
@@ -15,7 +15,7 @@ const MainHistoryTable = () => {
       cell: (el) => (
         <span className="flex items-center justify-between">
           {el.row.original.shortUrl}
-          <CopyActionButton shortUrl={el.row.original.shortUrl} />
+          <DataTableCopyActionButton shortUrl={el.row.original.shortUrl} />
         </span>
       ),
     },
