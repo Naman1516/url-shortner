@@ -55,7 +55,7 @@ const MainShortenSection = ({ btnText }: InputProps) => {
 
   return (
     <section className="w-full flex flex-col justify-center items-center">
-      <form className=" w-full max-w-2xl flex items-center justify-center relative">
+      <form className="w-11/12 lg:w-full max-w-2xl flex items-center justify-center relative">
         <Link size={16} color="#C9CED6" className="absolute left-6" />
         <Input
           type="url"
