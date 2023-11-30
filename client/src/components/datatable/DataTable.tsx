@@ -68,7 +68,7 @@ const DataTable = (props: DataTableProps) => {
             dataTable.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                className="border-[#353c4a] border-4 border-opacity-0 bg-slate-500 bg-opacity-20"
+                className="border-[#353c4a] border-4 border-opacity-0 bg-opacity-20 hover:bg-transparent"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
