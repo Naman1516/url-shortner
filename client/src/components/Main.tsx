@@ -4,9 +4,14 @@ import MainShortenSection from "@/components/MainShortenSection";
 import { SUBTEXT, TAGLINE } from "@/utils/constants/constants";
 import MainHistoryTable from "@/components/MainHistoryTable";
 import { useGetAllUrls } from "@/utils/custom-hooks/useGetAllUrls";
+import { useEffect } from "react";
 
 const Main = () => {
-  useGetAllUrls();
+  const getAllUrls = useGetAllUrls();
+  useEffect(() => {
+    getAllUrls();
+  }, []);
+  
   return (
     <main className="flex flex-col items-center justify-center gap-10 box-border mt-48">
       <MainTagline tagline={TAGLINE} />

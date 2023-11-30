@@ -4,6 +4,7 @@ import { ArrowRight, Link } from "lucide-react";
 import { FormEvent, useState } from "react";
 import MainCopyShortLink from "@/components/MainCopyShortLink";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
+import { useGetAllUrls } from "@/utils/custom-hooks/useGetAllUrls";
 
 type InputProps = {
   btnText: string;
@@ -13,6 +14,7 @@ const MainShortenSection = (props: InputProps) => {
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [shortLink, setShortLink] = useState("");
+  const getAllUrls = useGetAllUrls();
 
   const { generate } = useGenerateShortenUrl();
 
@@ -27,6 +29,7 @@ const MainShortenSection = (props: InputProps) => {
     }
     setUrl("");
     setIsLoading(false);
+    getAllUrls();
   };
 
   const clearshortLink = () => {
@@ -42,8 +45,8 @@ const MainShortenSection = (props: InputProps) => {
           <form className="relative w-10/12 md:w-1/2 flex items-center justify-center text-white">
             <Link size={16} color="#C9CED6" className="absolute left-6" />
             <input
-              type="text"
-              placeholder="https://rufbuk.com/"
+              type="url"
+              placeholder="Enter Link here"
               className="rounded-full pr-16 lg:pr-44 w-full h-16 px-4 py-6 pl-12 bg-[#181e29] border-4 border-[#353c4a] placeholder:text-[#c9ced6] caret-[#EB568E]"
               value={url}
               onChange={(event) => setUrl(event.target.value)}
