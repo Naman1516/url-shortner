@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -15,18 +16,20 @@ import {
   ColumnDef,
   SortingState,
   getSortedRowModel,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 type DataTableProps = {
   data: Array<UrlObject>;
   columns: ColumnDef<UrlObject>[];
 };
 
-const DataTable = (props: DataTableProps) => {
-  const { data, columns } = props;
+const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [filtering, setFiltering] = useState("");
 
   const dataTable = useReactTable({
     data,
@@ -35,27 +38,56 @@ const DataTable = (props: DataTableProps) => {
     getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
+      globalFilter: filtering,
     },
     onSortingChange: setSorting,
+    onGlobalFilterChange: setFiltering,
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
+
   return (
-    <>
-      <Table className="border-[#353c4a] table-fixed bg-[#181e29] rounded-md">
-        <TableHeader className="">
+    <div className="w-full">
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter urls..."
+          value={filtering}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setFiltering(event.target.value)
+          }
+          className="max-w-sm bg-[#181e29] text-white"
+        />
+      </div>
+      <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">
+        <TableHeader>
           {dataTable.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow
+              key={headerGroup.id}
+              className="hover:bg-transparent rounded-sm"
+            >
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
                   className="text-white font-semi-bold cursor-pointer"
+                  onClick={header.column.getToggleSortingHandler()}
                 >
                   {header.isPlaceholder ? null : (
-                    <div>
+                    <div className="flex items-center gap-2">
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
+                      {
+                        {
+                          asc: <ChevronUp size={16} />,
+                          desc: <ChevronDown size={16} />,
+                        }[
+                          (header.column.getIsSorted() ?? null) as keyof {
+                            asc: string;
+                            desc: string;
+                          }
+                        ]
+                      }
                     </div>
                   )}
                 </TableHead>
@@ -97,6 +129,16 @@ const DataTable = (props: DataTableProps) => {
             variant="outline"
             size="sm"
             className="bg-transparent"
+            onClick={() => dataTable.setPageIndex(0)}
+            disabled={!dataTable.getCanPreviousPage()}
+          >
+            First Page
+          </Button>
+
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-transparent"
             onClick={() => dataTable.previousPage()}
             disabled={!dataTable.getCanPreviousPage()}
           >
@@ -111,9 +153,18 @@ const DataTable = (props: DataTableProps) => {
           >
             Next
           </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-transparent"
+            onClick={() => dataTable.setPageIndex(dataTable.getPageCount() - 1)}
+            disabled={!dataTable.getCanNextPage()}
+          >
+            Last Page
+          </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
