@@ -20,7 +20,7 @@ const MainHistoryTable = () => {
       ),
     },
     { header: "Original Link", accessorKey: "origUrl" },
-    { header: "Clicks", accessorKey: "clicks", enableSorting: true },
+    { header: "Clicks", accessorKey: "clicks" },
     {
       header: "Created",
       accessorKey: "date",
