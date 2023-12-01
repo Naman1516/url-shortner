@@ -121,7 +121,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
       </Table>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {dataTable.getFilteredSelectedRowModel().rows.length} of{" "}
+          {dataTable.getFilteredSelectedRowModel().rows.length} of&nbsp;
           {dataTable.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
