@@ -1,10 +1,10 @@
 import axios from "axios";
-import { API_BASE_URL } from "@/utils/constants/constants";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const useGenerateShortenUrl = () => {
   const generate = async (origUrl: string) => {
     console.log({ origUrl });
-    const endpoint = API_BASE_URL + "/short";
+    const endpoint = BASE_URL + "/short";
     try {
       const response = await axios.post(endpoint, {
         origUrl,
