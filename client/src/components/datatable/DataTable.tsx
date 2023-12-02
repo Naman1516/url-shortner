@@ -48,14 +48,14 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex flex-row-reverse items-center py-4">
         <Input
           placeholder="Filter urls..."
           value={filtering}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setFiltering(event.target.value)
           }
-          className="max-w-sm bg-[#181e29] text-white"
+          className="max-w-sm bg-[#181e29] text-white border border-[#353c4a]"
         />
       </div>
       <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">
