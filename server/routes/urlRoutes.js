@@ -1,10 +1,9 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const UrlController = require("../controllers/urlController");
+import * as UrlController from "../controllers/urlController.js";
 
 router.get("/all", UrlController.getAllUrls);
 router.post("/short", UrlController.shortenUrl);
 router.get("/:urlId", UrlController.redirectToOriginalUrl);
 
-module.exports = router;
-
+export { router };

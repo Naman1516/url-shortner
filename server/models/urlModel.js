@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const url = new mongoose.Schema({
   urlId: {
@@ -24,4 +24,4 @@ const url = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("urls", url);
+export default mongoose.model("urls", url);

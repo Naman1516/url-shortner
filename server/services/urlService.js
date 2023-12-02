@@ -1,5 +1,5 @@
-const Url = require("../models/urlModel");
-const dotenv = require("dotenv");
+import Url from "../models/urlModel.js";
+import dotenv from "dotenv";
 dotenv.config();
 const BASE_URL = process.env.BASE_URL;
 
@@ -38,7 +38,7 @@ const createShortenedUrl = async (origUrl, urlId) => {
   return url;
 };
 
-module.exports = {
+export {
   getAllUrlsService,
   findUrlByOriginal,
   findByUrlId,
