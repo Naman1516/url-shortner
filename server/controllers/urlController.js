@@ -1,6 +1,6 @@
-const UrlService = require("../services/urlService");
-const shortid = require("shortid");
-const { validateUrl } = require("../utils/utils");
+import * as UrlService from "../services/urlService.js";
+import shortid from "shortid";
+import { validateUrl } from "../utils/utils.js";
 
 const getAllUrls = async (req, res, next) => {
   try {
@@ -49,8 +49,4 @@ const redirectToOriginalUrl = async (req, res) => {
   }
 };
 
-module.exports = {
-  getAllUrls,
-  shortenUrl,
-  redirectToOriginalUrl,
-};
+export { getAllUrls, shortenUrl, redirectToOriginalUrl };

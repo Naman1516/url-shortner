@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const connectToDatabase = async () => {
   try {
@@ -17,4 +17,4 @@ const validateUrl = (url) => {
   return true;
 };
 
-module.exports = { connectToDatabase, validateUrl };
+export { connectToDatabase, validateUrl };
