@@ -46,6 +46,18 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  const {
+    getHeaderGroups,
+    getFilteredSelectedRowModel,
+    setPageIndex,
+    getCanPreviousPage,
+    previousPage,
+    nextPage,
+    getCanNextPage,
+    getPageCount,
+    getRowModel,
+  } = dataTable;
+
   return (
     <div className="w-full">
       <div className="flex flex-row-reverse items-center py-4">
@@ -60,7 +72,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
       </div>
       <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">
         <TableHeader>
-          {dataTable.getHeaderGroups().map((headerGroup) => (
+          {getHeaderGroups().map((headerGroup) => (
             <TableRow
               key={headerGroup.id}
               className="hover:bg-transparent rounded-sm"
@@ -96,8 +108,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           ))}
         </TableHeader>
         <TableBody>
-          {dataTable.getRowModel().rows.length ? (
-            dataTable.getRowModel().rows.map((row) => (
+          {getRowModel().rows.length ? (
+            getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 className="border-[#353c4a] border-4 border-opacity-0 bg-opacity-20 hover:bg-transparent"
@@ -121,7 +133,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
       </Table>
       <div className="flex flex-col lg:flex-row items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {dataTable.getFilteredSelectedRowModel().rows.length} of&nbsp;
+          {getFilteredSelectedRowModel().rows.length} of&nbsp;
           {dataTable.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="flex gap-2 py-4">
@@ -129,8 +141,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
             variant="outline"
             size="sm"
             className="bg-transparent"
-            onClick={() => dataTable.setPageIndex(0)}
-            disabled={!dataTable.getCanPreviousPage()}
+            onClick={() => setPageIndex(0)}
+            disabled={!getCanPreviousPage()}
           >
             First Page
           </Button>
@@ -139,8 +151,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
             variant="outline"
             size="sm"
             className="bg-transparent"
-            onClick={() => dataTable.previousPage()}
-            disabled={!dataTable.getCanPreviousPage()}
+            onClick={() => previousPage()}
+            disabled={!getCanPreviousPage()}
           >
             Previous
           </Button>
@@ -148,8 +160,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
             variant="outline"
             size="sm"
             className="bg-transparent"
-            onClick={() => dataTable.nextPage()}
-            disabled={!dataTable.getCanNextPage()}
+            onClick={() => nextPage()}
+            disabled={!getCanNextPage()}
           >
             Next
           </Button>
@@ -157,8 +169,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
             variant="outline"
             size="sm"
             className="bg-transparent"
-            onClick={() => dataTable.setPageIndex(dataTable.getPageCount() - 1)}
-            disabled={!dataTable.getCanNextPage()}
+            onClick={() => setPageIndex(getPageCount() - 1)}
+            disabled={!getCanNextPage()}
           >
             Last Page
           </Button>
