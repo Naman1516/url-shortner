@@ -18,9 +18,9 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import DataTableFooterActionButtons from "./DataTableFooterActionButtons";
 
 type DataTableProps = {
   data: Array<UrlObject>;
@@ -137,43 +137,14 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           {dataTable.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="flex gap-2 py-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-transparent"
-            onClick={() => setPageIndex(0)}
-            disabled={!getCanPreviousPage()}
-          >
-            First Page
-          </Button>
-
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-transparent"
-            onClick={() => previousPage()}
-            disabled={!getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-transparent"
-            onClick={() => nextPage()}
-            disabled={!getCanNextPage()}
-          >
-            Next
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-transparent"
-            onClick={() => setPageIndex(getPageCount() - 1)}
-            disabled={!getCanNextPage()}
-          >
-            Last Page
-          </Button>
+          <DataTableFooterActionButtons
+            setPageIndex={setPageIndex}
+            previousPage={previousPage}
+            nextPage={nextPage}
+            getCanNextPage={getCanNextPage}
+            getCanPreviousPage={getCanPreviousPage}
+            getPageCount={getPageCount}
+          />
         </div>
       </div>
     </div>
