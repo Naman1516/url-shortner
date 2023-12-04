@@ -50,12 +50,12 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
     <div className="w-full">
       <div className="flex flex-row-reverse items-center py-4">
         <Input
-          placeholder="Filter urls..."
+          placeholder="Filter Results"
           value={filtering}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setFiltering(event.target.value)
           }
-          className="max-w-sm bg-[#181e29] text-white border border-[#353c4a]"
+          className="text-base bg-[#181e29] text-white border border-[#353c4a] w-full lg:w-64"
         />
       </div>
       <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">
@@ -119,12 +119,12 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex flex-col lg:flex-row items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {dataTable.getFilteredSelectedRowModel().rows.length} of&nbsp;
           {dataTable.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="space-x-2">
+        <div className="flex gap-2 py-4">
           <Button
             variant="outline"
             size="sm"

@@ -11,7 +11,7 @@ const Main = () => {
   useEffect(() => {
     getAllUrls();
   }, []);
-  
+
   return (
     <main className="flex flex-col items-center justify-center gap-10 box-border mt-48">
       <MainTagline tagline={TAGLINE} />

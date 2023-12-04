@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 
 type PrimaryButtonProps = {
@@ -12,12 +12,19 @@ type PrimaryButtonProps = {
 const PrimaryButton = (props: PrimaryButtonProps) => {
   const { callback, type, disabled, className } = props;
 
+  const callbackFn = useCallback(
+    (event: FormEvent) => {
+      callback(event);
+    },
+    [callback]
+  );
+
   return (
     <Button
       type={type}
       className={`absolute right-2 rounded-full py-6 px-10 bg-primary border-primary font-bold text-sm disabled:bg-blue-500 disabled:cursor-not-allowed ${className}`}
       disabled={disabled}
-      onClick={callback}
+      onClick={callbackFn}
     >
       {props.children}
     </Button>

@@ -31,7 +31,7 @@ const MainHistoryTable = () => {
   ];
 
   return (
-    <div className="w-11/12 text-white mt-20">
+    <div className="w-11/12 text-white lg:mt-20">
       <DataTable data={data} columns={columns} />
     </div>
   );
