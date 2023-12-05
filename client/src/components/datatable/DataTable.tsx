@@ -48,7 +48,6 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 
   const {
     getHeaderGroups,
-    getFilteredSelectedRowModel,
     setPageIndex,
     getCanPreviousPage,
     previousPage,
@@ -133,8 +132,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
       </Table>
       <div className="flex flex-col lg:flex-row items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {getFilteredSelectedRowModel().rows.length} of&nbsp;
-          {dataTable.getFilteredRowModel().rows.length} row(s) selected.
+          Showing {dataTable.getState().pagination.pageIndex + 1}
+          &nbsp;of&nbsp;
+          {dataTable.getPageCount()} page(s)
         </div>
         <div className="flex gap-2 py-4">
           <DataTableFooterActionButtons
