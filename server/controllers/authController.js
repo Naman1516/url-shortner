@@ -4,9 +4,9 @@ import {
   updateRefreshTokenService,
 } from "../services/authService.js";
 import { genSalt, hash, compare } from "bcrypt";
-import pkg from "jsonwebtoken";
 import { generateToken } from "../utils/utils.js";
-const { sign, verify } = pkg;
+import pkg from "jsonwebtoken";
+const { verify } = pkg;
 
 const authorize = async (req, res) => {
   try {
