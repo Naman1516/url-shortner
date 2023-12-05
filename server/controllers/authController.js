@@ -5,6 +5,7 @@ import {
 } from "../services/authService.js";
 import { genSalt, hash, compare } from "bcrypt";
 import pkg from "jsonwebtoken";
+import { generateToken } from "../utils/utils.js";
 const { sign, verify } = pkg;
 
 const authorize = async (req, res) => {
@@ -24,11 +25,9 @@ const authorize = async (req, res) => {
       return res.json({ status: "error", message: "Password didn't match!" });
     }
 
-    const accessToken = sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-    });
+    const accessToken = generateToken(user);
 
-    const refreshToken = sign({ user }, process.env.REFRESH_TOKEN_SECRET);
+    const refreshToken = generateToken(user, true);
 
     await updateRefreshTokenService(user.id, refreshToken);
 
@@ -50,15 +49,9 @@ const register = async (req, res) => {
     const user = { firstName, lastName, email, hash: hashedPassword };
     const { _doc: response } = await registerService(user);
     delete response.hash;
-    const accessToken = sign(
-      { user: response },
-      process.env.ACCESS_TOKEN_SECRET,
-      {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-      }
-    );
+    const accessToken = generateToken(response);
     // handle with redis
-    const refreshToken = sign({ user }, process.env.REFRESH_TOKEN_SECRET);
+    const refreshToken = generateToken(response, true);
     await updateRefreshTokenService(user.id, refreshToken);
 
     res.json({ status: "success", user: response, accessToken, refreshToken });
@@ -82,9 +75,7 @@ const refresh = async (req, res) => {
     (err, userWithAdditionalInfo) => {
       if (err) return res.sendStatus(403).send(err.message);
       const { user } = userWithAdditionalInfo;
-      const accessToken = sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
-      });
+      const accessToken = generateToken(user);
       return res.json({ status: "success", accessToken });
     }
   );
