@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import pkg from "jsonwebtoken";
+const { verify } = pkg;
 
 const connectToDatabase = async () => {
   try {
@@ -17,4 +19,16 @@ const validateUrl = (url) => {
   return true;
 };
 
-export { connectToDatabase, validateUrl };
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token === null) return res.sendStatus(401);
+
+  verify(token, process.env.SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
+export { connectToDatabase, validateUrl, authenticateToken };
