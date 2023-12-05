@@ -15,8 +15,8 @@ const connectToDatabase = async () => {
 };
 
 const validateUrl = (url) => {
-  // Your validation logic here
-  return true;
+  const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlRegex.test(url);
 };
 
 const authenticateToken = (req, res, next) => {
