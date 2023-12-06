@@ -9,10 +9,17 @@ const registerService = async (user) => {
   return await newUser.save();
 };
 
-const updateRefreshTokenService = async (id, refreshToken) => {
-  return await User.findByIdAndUpdate(id, {
-    refreshToken,
-  });
+const updateRefreshToken = async (id, refreshToken) => {
+  return await User.updateOne({ _id: id }, { refreshToken });
 };
 
-export { getUser, registerService, updateRefreshTokenService };
+const revokeAccessToken = async (id) => {
+  return await User.updateOne(
+    { _id: id },
+    {
+      refreshToken: null,
+    }
+  );
+};
+
+export { getUser, registerService, updateRefreshToken, revokeAccessToken };

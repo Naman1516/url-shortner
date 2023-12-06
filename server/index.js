@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import { connectToDatabase } from "./utils/utils.js";
+
 import { urlRouter } from "./routes/urlRoutes.js";
 import { authRouter } from "./routes/authRoutes.js";
 
