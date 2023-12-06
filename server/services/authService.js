@@ -1,6 +1,6 @@
 import User from "../models/userModel.js";
 
-const authorizeService = async (email) => {
+const getUser = async (email) => {
   return await User.findOne({ email });
 };
 
@@ -15,4 +15,4 @@ const updateRefreshTokenService = async (id, refreshToken) => {
   });
 };
 
-export { authorizeService, registerService, updateRefreshTokenService };
+export { getUser, registerService, updateRefreshTokenService };

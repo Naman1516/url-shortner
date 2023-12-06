@@ -1,5 +1,5 @@
 import {
-  authorizeService,
+  getUser,
   registerService,
   updateRefreshTokenService,
 } from "../services/authService.js";
@@ -11,10 +11,10 @@ const { verify } = pkg;
 const authorize = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const { _doc: userWithHash } = await authorizeService(email);
+    const { _doc: userWithHash } = await getUser(email);
     const { hash, ...user } = userWithHash;
     if (!user) {
-      return res.status(401).json({
+      return res.sendStatus(401).send({
         status: "error",
         message: "Unable to login with supplied credentials",
       });
@@ -22,7 +22,9 @@ const authorize = async (req, res) => {
 
     const passwordMatch = await compare(password, hash);
     if (!passwordMatch) {
-      return res.json({ status: "error", message: "Password didn't match!" });
+      return res
+        .sendStatus(401)
+        .send({ status: "error", message: "Password didn't match!" });
     }
 
     const accessToken = generateToken(user);
@@ -34,7 +36,7 @@ const authorize = async (req, res) => {
     return res.json({ status: "success", accessToken, refreshToken });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
+    return res.sendStatus(500).send({
       status: "error",
       message: "Internal Server Error. Please try again later.",
     });
@@ -44,6 +46,15 @@ const authorize = async (req, res) => {
 const register = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
+    const exisitingUser = await getUser(email);
+    if (exisitingUser) {
+      return res.sendStatus(400).send({
+        status: "error",
+        message: "User already exists",
+      });
+    }
+
+    // if user doesn't exist
     const salt = await genSalt();
     const hashedPassword = await hash(password, salt);
     const user = { firstName, lastName, email, hash: hashedPassword };
@@ -54,10 +65,15 @@ const register = async (req, res) => {
     const refreshToken = generateToken(response, true);
     await updateRefreshTokenService(user.id, refreshToken);
 
-    res.json({ status: "success", user: response, accessToken, refreshToken });
+    return res.json({
+      status: "success",
+      user: response,
+      accessToken,
+      refreshToken,
+    });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
+    return res.sendStatus(500).send({
       status: "error",
       message: "Internal Server Error. Please try again later.",
     });
