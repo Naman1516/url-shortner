@@ -22,7 +22,7 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
   return (
     <Button
       type={type}
-      className={`absolute right-2 rounded-full py-6 px-10 bg-primary border-primary font-bold text-sm disabled:bg-blue-500 disabled:cursor-not-allowed ${className}`}
+      className={`right-2 rounded-full py-6 px-10 bg-primary border-primary font-bold text-sm disabled:bg-blue-500 disabled:cursor-not-allowed ${className}`}
       disabled={disabled}
       onClick={callbackFn}
     >
