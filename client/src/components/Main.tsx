@@ -3,17 +3,11 @@ import MainTagline from "@/components/MainTagline";
 import MainSubText from "@/components/MainSubText";
 import MainShortenSection from "@/components/MainShortenSection";
 import MainHistoryTable from "@/components/MainHistoryTable";
-import LoginRegisterModal from "@/components/LoginRegisterModal";
 import { useGetAllUrls } from "@/utils/custom-hooks/useGetAllUrls";
-import { useAppSelector } from "@/utils/store/appStore";
 import { SUBTEXT, TAGLINE } from "@/utils/constants/constants";
 
 const Main = () => {
   const getAllUrls = useGetAllUrls();
-  const { isVisible: showModal, type: modalType } = useAppSelector(
-    (store) => store.global.modalState
-  );
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,14 +21,11 @@ const Main = () => {
   }, [getAllUrls]);
 
   return (
-    <main className="flex flex-col items-center justify-center gap-10 box-border mt-48">
+    <main className="flex flex-col items-center justify-center gap-10 box-border mt-28 lg:mt-48">
       <MainTagline tagline={TAGLINE} />
       <MainSubText subtext={SUBTEXT} />
       <MainShortenSection btnText="Shorten Me!" />
       <MainHistoryTable />
-      {showModal && (modalType === "login" || modalType === "register") && (
-        <LoginRegisterModal type={modalType} />
-      )}
     </main>
   );
 };

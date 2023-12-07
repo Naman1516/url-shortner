@@ -1,42 +1,117 @@
-import { useAppDispatch } from "@/utils/store/appStore";
-import { closeModal } from "@/utils/store/globalSlice";
 import { Button } from "@/components/ui/button";
-import LoginRegisterForm from "@/components/LoginRegisterForm";
-import { X } from "lucide-react";
+import { LogIn } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useState } from "react";
+import LoginRegisterFormInput from "./LoginRegisterFormInput";
 
 type Props = {
   type: "login" | "register";
+  isSideMenu?: boolean;
 };
 
-const LoginRegisterModal = ({ type }: Props) => {
-  const dispatch = useAppDispatch();
-
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-  };
+const LoginRegisterModal = ({ type, isSideMenu }: Props) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   return (
-    <>
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-0"></div>
-      <section className="fixed inset-0 flex justify-center items-center z-10">
-        <div className="border-2  max-w-screen-sm rounded-xl w-2/5 bg-white">
-          <div className="flex flex-col justify-center items-center px-6">
-            <div className="w-full text-center relative flex items-center justify-center">
-              <Button
-                className="absolute right-0 rounded-full bg-transparent text-neutral-500 hover:text-white"
-                onClick={handleCloseModal}
-              >
-                <X size={20} />
+    <Dialog>
+      <form>
+        {!isSideMenu && (
+          <DialogTrigger asChild>
+            {type === "login" ? (
+              <Button className="flex gap-2 px-8 py-4 rounded-full bg-[#181e29] border border-[#353c4a]">
+                Login <LogIn size={16} />
               </Button>
-              <h3 className="p-4 font-semibold text-lg">
-                {type === "login" ? "Welcome back" : "Create your account"}
-              </h3>
-            </div>
-            <LoginRegisterForm type={type} className="w-full m-4" />
-          </div>
-        </div>
-      </section>
-    </>
+            ) : (
+              <Button className="flex gap-2 px-8 py-4 rounded-full">
+                Register Now
+              </Button>
+            )}
+          </DialogTrigger>
+        )}
+        {isSideMenu && (
+          <DialogTrigger asChild>
+            {type === "login" ? (
+              <Button className="w-full">Login</Button>
+            ) : (
+              <Button className="w-full">Register</Button>
+            )}
+          </DialogTrigger>
+        )}
+        <DialogContent className="w-10/12 rounded-md">
+          <DialogHeader>
+            <DialogTitle className=" text-center">
+              {type === "login" ? "Welcome back!" : "Create your account!"}
+            </DialogTitle>
+          </DialogHeader>
+          {type === "register" && (
+            <>
+              <LoginRegisterFormInput
+                type="text"
+                id="firstName"
+                label="First Name"
+                value={formData.firstName}
+                setValue={(value) =>
+                  setFormData({ ...formData, firstName: value })
+                }
+              />
+              <LoginRegisterFormInput
+                type="text"
+                id="lastName"
+                label="Last Name"
+                value={formData.lastName}
+                setValue={(value) =>
+                  setFormData({ ...formData, lastName: value })
+                }
+              />
+            </>
+          )}
+          <LoginRegisterFormInput
+            type="email"
+            id="email"
+            label="Email"
+            value={formData.email}
+            setValue={(value) => setFormData({ ...formData, email: value })}
+          />
+          <LoginRegisterFormInput
+            type="password"
+            id="password"
+            label="Password"
+            value={formData.password}
+            setValue={(value) => setFormData({ ...formData, password: value })}
+          />
+          {type === "register" && (
+            <LoginRegisterFormInput
+              type="password"
+              id="confirmPassword"
+              label="Confirm Password"
+              value={formData.confirmPassword}
+              setValue={(value) =>
+                setFormData({ ...formData, confirmPassword: value })
+              }
+            />
+          )}
+
+          <DialogFooter>
+            <Button type="submit" className="w-full">
+              {type === "login" ? "Login" : "Register"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </form>
+    </Dialog>
   );
 };
 
