@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import { redisClient } from "../utils/connectToRedis.js";
 
 const getUser = async (email) => {
   return await User.findOne({ email });
@@ -10,16 +11,25 @@ const registerService = async (user) => {
 };
 
 const updateRefreshToken = async (id, refreshToken) => {
-  return await User.updateOne({ _id: id }, { refreshToken });
-};
-
-const revokeAccessToken = async (id) => {
-  return await User.updateOne(
-    { _id: id },
-    {
-      refreshToken: null,
-    }
+  return await redisClient.setEx(
+    `refreshToken:${id}`,
+    process.env.REFRESH_TOKEN_EXPIRY,
+    refreshToken
   );
 };
 
-export { getUser, registerService, updateRefreshToken, revokeAccessToken };
+const revokeRefreshToken = async (id) => {
+  return await redisClient.del(`refreshToken:${id}`);
+};
+
+const isRefreshTokenAvailable = async (id) => {
+  return await redisClient.get(`refreshToken:${id}`);
+};
+
+export {
+  getUser,
+  registerService,
+  updateRefreshToken,
+  revokeRefreshToken,
+  isRefreshTokenAvailable,
+};
