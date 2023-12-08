@@ -66,6 +66,7 @@ const MainShortenSection = ({ btnText }: InputProps) => {
         />
         <PrimaryButton
           type="submit"
+          className="absolute right-2"
           disabled={isCopyMode ? isCopied : isLoading || !url}
           callback={isCopyMode ? handleCopy : handleShortenUrl}
         >

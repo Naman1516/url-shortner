@@ -21,10 +21,6 @@ const user = new mongoose.Schema({
     type: String,
     required: true,
   },
-  refreshToken: {
-    type: String,
-    required: true,
-  },
   createdAt: {
     type: String,
     default: Date.now,

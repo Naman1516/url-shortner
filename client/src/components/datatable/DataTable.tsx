@@ -67,7 +67,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setFiltering(event.target.value)
           }
-          className="text-base bg-[#181e29] text-white border border-[#353c4a] w-full lg:w-64"
+          className="text-base bg-[#181e29] text-white border border-[#353c4a] w-full md:w-64"
         />
       </div>
       <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">

@@ -2,7 +2,8 @@ import {
   getUser,
   registerService,
   updateRefreshToken,
-  revokeAccessToken,
+  isRefreshTokenAvailable,
+  revokeRefreshToken,
 } from "../services/authService.js";
 import { genSalt, hash as genHash, compare } from "bcrypt";
 import { generateToken } from "../utils/utils.js";
@@ -17,19 +18,20 @@ const authorize = async (req, res) => {
     if (!user) {
       return res.status(401).send({
         status: "error",
-        message: "Unable to login with supplied credentials",
+        message: "Unable to login with supplied credentials!",
       });
     }
 
     const passwordMatch = await compare(password, user.hash);
     if (!passwordMatch) {
-      return res
-        .status(401)
-        .send({ status: "error", message: "Password didn't match!" });
+      return res.status(401).send({
+        status: "error",
+        message: "Unable to login with supplied credentials!",
+      });
     }
 
     const { _doc: userDocument } = user;
-    const { hash, refreshToken: prevRefreshToken, ...claims } = userDocument;
+    const { hash, ...claims } = userDocument;
 
     const accessToken = generateToken(claims);
 
@@ -58,7 +60,6 @@ const register = async (req, res) => {
       });
     }
 
-    // if user doesn't exist
     const salt = await genSalt();
     const hashedPassword = await genHash(password, salt);
     const user = {
@@ -71,10 +72,10 @@ const register = async (req, res) => {
     const { hash, ...claims } = user;
 
     const accessToken = generateToken(claims);
-    // handle with redis
     const refreshToken = generateToken(claims, true);
-
-    const { _doc: response } = await registerService({ ...user, refreshToken });
+    // set refreshToken for user -> redis
+    await updateRefreshToken(user._id, refreshToken);
+    const { _doc: response } = await registerService(user);
     delete response.hash;
     delete response.refreshToken;
 
@@ -101,9 +102,15 @@ const refresh = async (req, res) => {
   verify(
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
-    (err, userWithAdditionalInfo) => {
-      if (err) return res.status(403).send(err.message);
+    async (err, userWithAdditionalInfo) => {
+      if (err)
+        return res.status(403).send({ status: "failed", message: err.message });
       const { user } = userWithAdditionalInfo;
+      if (!(await isRefreshTokenAvailable(user._id))) {
+        return res
+          .status(400)
+          .send({ status: "failed", message: "Invalid refresh token!" });
+      }
       const accessToken = generateToken(user);
       return res.json({ status: "success", accessToken });
     }
@@ -113,7 +120,7 @@ const refresh = async (req, res) => {
 const logout = async (req, res) => {
   const { userId } = req.body;
   try {
-    await revokeAccessToken(userId);
+    await revokeRefreshToken(userId);
     return res.json({ status: "success" });
   } catch (error) {
     console.error(error);
