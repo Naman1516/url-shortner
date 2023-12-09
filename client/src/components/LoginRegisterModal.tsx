@@ -52,7 +52,7 @@ const LoginRegisterModal = ({ type, isSideMenu }: Props) => {
       <form>
         <DialogContent className="w-10/12 flex flex-col gap-y-6 rounded-md dark:text-white">
           <DialogHeader>
-            <DialogTitle className=" text-center my-2 text-2xl">
+            <DialogTitle className=" text-center my-2 text-xl md:text-2xl">
               {type === "login" ? "Welcome back!" : "Create your account!"}
             </DialogTitle>
           </DialogHeader>
@@ -108,7 +108,7 @@ const LoginRegisterModal = ({ type, isSideMenu }: Props) => {
             )}
           </div>
           <DialogFooter>
-            <Button type="submit" className="w-full h-14">
+            <Button type="submit" className="w-full h-12 md:h-14">
               {type === "login" ? "Login" : "Register"}
             </Button>
           </DialogFooter>
