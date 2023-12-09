@@ -84,7 +84,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
                   onClick={header.column.getToggleSortingHandler()}
                 >
                   {header.isPlaceholder ? null : (
-                    <div className={`flex items-center gap-2`}>
+                    <div className={`flex items-center gap-2 w-32`}>
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()

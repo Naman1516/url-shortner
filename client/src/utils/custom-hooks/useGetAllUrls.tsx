@@ -11,8 +11,7 @@ export const useGetAllUrls = () => {
     const endpoint = BASE_URL + "/all";
     try {
       const response = await axios.get(endpoint);
-
-      dispatch(setAllUrls(response.data));
+      dispatch(setAllUrls(response.data?.data));
     } catch (error) {
       console.error(error);
     }
