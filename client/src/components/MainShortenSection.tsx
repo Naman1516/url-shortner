@@ -1,11 +1,16 @@
-import SpinnerIcon from "@/components/icons/SpinnerIcon";
-import useGenerateShortenUrl from "@/utils/custom-hooks/useGenerateShortenUrl";
-import { ArrowRight, Copy, FileCheck2, Link } from "lucide-react";
 import { FormEvent, useState } from "react";
+
+import SpinnerIcon from "@/components/icons/SpinnerIcon";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
-import { useGetAllUrls } from "@/utils/custom-hooks/useGetAllUrls";
 import { Input } from "@/components/ui/input";
+import InputErrorMessage from "@/components/InputErrorMessage";
+
+import useGenerateShortenUrl from "@/utils/custom-hooks/useGenerateShortenUrl";
+import { validateUrl } from "@/utils/validate";
 import useCopyToClipboard from "@/utils/custom-hooks/useCopyToClipboard";
+import { useGetAllUrls } from "@/utils/custom-hooks/useGetAllUrls";
+
+import { ArrowRight, Copy, FileCheck2, Link } from "lucide-react";
 
 type InputProps = {
   btnText: string;
@@ -17,6 +22,7 @@ const MainShortenSection = ({ btnText }: InputProps) => {
   const [shortLink, setShortLink] = useState("");
   const [isCopyMode, setIsCopyMode] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [errorMsg, setErrorMessage] = useState("");
 
   const getAllUrls = useGetAllUrls();
   const { copyToClipboard } = useCopyToClipboard();
@@ -25,6 +31,10 @@ const MainShortenSection = ({ btnText }: InputProps) => {
   const handleShortenUrl = async (event: FormEvent) => {
     event.preventDefault();
     if (!url) return;
+    if (!validateUrl(url)) {
+      setErrorMessage("Invalid Link!");
+      return;
+    }
     setIsLoading(true);
     const respone = await generate(url);
     setIsCopyMode(true);
@@ -36,6 +46,7 @@ const MainShortenSection = ({ btnText }: InputProps) => {
         setIsCopyMode(false);
       }, 7000);
     }
+    setErrorMessage("");
     setIsLoading(false);
     getAllUrls();
   };
@@ -62,6 +73,7 @@ const MainShortenSection = ({ btnText }: InputProps) => {
           placeholder="Enter your link"
           className="shorten-input"
           onChange={(event) => setUrl(event.target.value)}
+          onInput={() => setErrorMessage("")}
           value={isCopyMode ? shortLink : url}
         />
         <PrimaryButton
@@ -100,6 +112,12 @@ const MainShortenSection = ({ btnText }: InputProps) => {
           </span>
         </PrimaryButton>
       </form>
+      <InputErrorMessage
+        message={errorMsg}
+        className={`w-11/12 h-10 lg:w-full max-w-2xl transition-opacity ease-in-out ${
+          errorMsg ? "opacity-100" : "opacity-0"
+        }`}
+      />
     </section>
   );
 };
