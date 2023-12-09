@@ -14,7 +14,7 @@ const MainHistoryTable = () => {
       header: "Short Link",
       accessorKey: "shortUrl",
       cell: (el) => (
-        <div className="flex items-center gap-x-6">
+        <div className="flex items-center justify-between gap-x-6">
           <a
             href={el.row.original.shortUrl}
             target="_blank"
@@ -31,7 +31,7 @@ const MainHistoryTable = () => {
       accessorKey: "origUrl",
       cell: (el) => (
         <a
-          className="flex items-center gap-x-6"
+          className="flex items-center gap-x-4"
           href={el.row.original.origUrl}
           target="_blank"
           rel="noopener noreferrer"
