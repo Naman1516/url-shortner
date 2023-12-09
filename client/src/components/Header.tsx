@@ -4,7 +4,7 @@ import HeaderMobileMenu from "./HeaderMobileMenu";
 
 const Header = () => {
   return (
-    <header className="bg-transparent h-16 flex justify-between items-center px-10 fixed inset-0 text-white">
+    <header className="bg-transparent h-16 flex justify-between items-center px-10 fixed inset-0 text-white z-50">
       <h1 className="font-extrabold bg-gradient-to-r from-[#eb568e] to-[#144ee3] text-transparent bg-clip-text uppercase">
         {BRAND_NAME}
       </h1>
