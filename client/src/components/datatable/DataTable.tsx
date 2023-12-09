@@ -53,6 +53,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
     previousPage,
     nextPage,
     getCanNextPage,
+    getState,
     getPageCount,
     getRowModel,
   } = dataTable;
@@ -69,7 +70,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           className="text-base bg-[#181e29] text-white border border-[#353c4a] w-full lg:w-64"
         />
       </div>
-      <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">
+      <Table className="border-[#353c4a] table-auto bg-[#181e29] rounded-md">
         <TableHeader>
           {getHeaderGroups().map((headerGroup) => (
             <TableRow
@@ -83,7 +84,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
                   onClick={header.column.getToggleSortingHandler()}
                 >
                   {header.isPlaceholder ? null : (
-                    <div className="flex items-center gap-2">
+                    <div className={`flex items-center gap-2 w-24`}>
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
@@ -116,7 +117,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className="text-ellipsis overflow-clip ..."
+                    className={`text-ellipsis overflow-clip max-w-[15rem]`}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
@@ -132,9 +133,8 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
       </Table>
       <div className="flex flex-col lg:flex-row items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          Showing {dataTable.getState().pagination.pageIndex + 1}
-          &nbsp;of&nbsp;
-          {dataTable.getPageCount()} page(s)
+          Page&nbsp;{getState().pagination.pageIndex + 1}
+          &nbsp;of&nbsp;{getPageCount() === 0 ? 1 : getPageCount()}
         </div>
         <div className="flex gap-2 py-4">
           <DataTableFooterActionButtons

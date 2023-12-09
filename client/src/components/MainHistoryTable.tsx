@@ -13,7 +13,7 @@ const MainHistoryTable = () => {
       header: "Short Link",
       accessorKey: "shortUrl",
       cell: (el) => (
-        <span className="flex items-center justify-between">
+        <span className="flex items-center gap-x-6">
           {el.row.original.shortUrl}
           <DataTableCopyActionButton shortUrl={el.row.original.shortUrl} />
         </span>
