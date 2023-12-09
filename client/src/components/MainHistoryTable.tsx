@@ -3,7 +3,7 @@ import { UrlObject } from "@/interfaces/urlObject";
 import { useAppSelector } from "@/utils/store/appStore";
 import { ColumnDef } from "@tanstack/react-table";
 import DataTable from "./datatable/DataTable";
-import DataTableCopyActionButton from "./datatable/DataTableCopyActionButton";
+import DataTableCopyActionButton from "@/components/datatable/DataTableCopyActionButton";
 import { FAVICON_URL } from "@/utils/constants/constants";
 
 const MainHistoryTable = () => {
@@ -14,24 +14,35 @@ const MainHistoryTable = () => {
       header: "Short Link",
       accessorKey: "shortUrl",
       cell: (el) => (
-        <span className="flex items-center gap-x-6">
-          {el.row.original.shortUrl}
+        <div className="flex items-center gap-x-6">
+          <a
+            href={el.row.original.shortUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {el.row.original.shortUrl}
+          </a>
           <DataTableCopyActionButton shortUrl={el.row.original.shortUrl} />
-        </span>
+        </div>
       ),
     },
     {
       header: "Original Link",
       accessorKey: "origUrl",
       cell: (el) => (
-        <span className="flex items-center gap-x-6">
+        <a
+          className="flex items-center gap-x-6"
+          href={el.row.original.origUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img
             src={FAVICON_URL(el.row.original.origUrl)}
             alt={el.row.original.origUrl}
             className="h-6"
           />
-          {el.row.original.origUrl}
-        </span>
+          <span className="">{el.row.original.origUrl}</span>
+        </a>
       ),
     },
     { header: "Clicks", accessorKey: "clicks" },

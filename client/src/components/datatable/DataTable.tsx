@@ -70,7 +70,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           className="text-base bg-[#181e29] text-white border border-[#353c4a] w-full md:w-64"
         />
       </div>
-      <Table className="border-[#353c4a] table-auto bg-[#181e29] rounded-md">
+      <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">
         <TableHeader>
           {getHeaderGroups().map((headerGroup) => (
             <TableRow
@@ -115,10 +115,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
                 className="border-[#353c4a] border-4 border-opacity-0 bg-opacity-20 hover:bg-transparent"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    className={`text-ellipsis overflow-clip max-w-xs lg:max-w-[15rem]`}
-                  >
+                  <TableCell key={cell.id} className={`truncate max-w-lg`}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
