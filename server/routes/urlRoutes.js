@@ -1,9 +1,14 @@
 import express from "express";
-const urlRouter = express.Router();
-import * as UrlController from "../controllers/urlController.js";
+import {
+  getAllUrls,
+  shortenUrl,
+  redirectToOriginalUrl,
+} from "../controllers/urlController.js";
 
-urlRouter.get("/all", UrlController.getAllUrls);
-urlRouter.post("/short", UrlController.shortenUrl);
-urlRouter.get("/:urlId", UrlController.redirectToOriginalUrl);
+const urlRouter = express.Router();
+
+urlRouter.get("/all", getAllUrls);
+urlRouter.post("/short", shortenUrl);
+urlRouter.get("/:urlId", redirectToOriginalUrl);
 
 export { urlRouter };
