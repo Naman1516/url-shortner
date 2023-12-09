@@ -25,10 +25,10 @@ const LoginRegisterFormInput = ({
         htmlFor={id}
         className={`absolute ${
           isFocused || value
-            ? "-top-3 text-sm px-2 text-primary"
+            ? "-top-3 text-sm px-2 text-primary bg-background"
             : "top-1/2 -translate-y-1/2 text-base "
         } ${
-          isFocused && " bg-background"
+          isFocused && "bg-background"
         } transition-all ease-in-out left-3 font-normal`}
       >
         {label}
