@@ -37,7 +37,7 @@ const LoginRegisterFormInput = ({
         type={type}
         id={id}
         onChange={(event) => setValue(event.target.value)}
-        className="w-full h-14 text-base focus:border-primary"
+        className="w-full h-12 md:h-14 text-base focus:border-primary"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
