@@ -61,7 +61,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
   return (
     <div className="w-full">
       <div className="flex justify-end items-center py-4">
-        <span className="relative flex items-center">
+        <span className="relative flex w-full md:w-64 items-center">
           <Search size={16} className="absolute left-5" />
           <Input
             placeholder="Search"
@@ -69,7 +69,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setFiltering(event.target.value)
             }
-            className="text-base w-full pl-12 md:w-64"
+            className="text-base pl-12"
           />
         </span>
       </div>
