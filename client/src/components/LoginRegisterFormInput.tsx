@@ -25,11 +25,11 @@ const LoginRegisterFormInput = ({
         htmlFor={id}
         className={`absolute ${
           isFocused || value
-            ? "-top-3 text-sm px-2 bg-white text-primary"
+            ? "-top-3 text-sm px-2 text-primary"
             : "top-1/2 -translate-y-1/2 text-base "
         } ${
-          isFocused ? "text-primary" : "text-neutral-600"
-        } transition-all ease-in-out left-3 font-normal rounded-md`}
+          isFocused && " bg-background"
+        } transition-all ease-in-out left-3 font-normal`}
       >
         {label}
       </Label>
@@ -37,7 +37,7 @@ const LoginRegisterFormInput = ({
         type={type}
         id={id}
         onChange={(event) => setValue(event.target.value)}
-        className="w-full h-10 rounded-md text-base border-neutral-600 focus:border-primary"
+        className="w-full h-10 text-base focus:border-primary"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />

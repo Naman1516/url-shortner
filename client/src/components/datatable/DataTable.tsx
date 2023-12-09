@@ -67,20 +67,17 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setFiltering(event.target.value)
           }
-          className="text-base bg-[#181e29] text-white border border-[#353c4a] w-full md:w-64"
+          className="text-base w-full md:w-64"
         />
       </div>
-      <Table className="border-[#353c4a] table-auto lg:table-fixed bg-[#181e29] rounded-md">
+      <Table className="border table-auto lg:table-fixed">
         <TableHeader>
           {getHeaderGroups().map((headerGroup) => (
-            <TableRow
-              key={headerGroup.id}
-              className="hover:bg-transparent rounded-sm"
-            >
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
-                  className="text-white font-semi-bold cursor-pointer"
+                  className="font-semi-bold cursor-pointer"
                   onClick={header.column.getToggleSortingHandler()}
                 >
                   {header.isPlaceholder ? null : (
@@ -110,10 +107,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
         <TableBody>
           {getRowModel().rows.length ? (
             getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                className="border-[#353c4a] border-4 border-opacity-0 bg-opacity-20 hover:bg-transparent"
-              >
+              <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id} className={`truncate max-w-lg`}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

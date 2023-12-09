@@ -1,21 +1,24 @@
 import useCopyToClipboard from "@/utils/custom-hooks/useCopyToClipboard";
 import { Copy, FileCheck2 } from "lucide-react";
 import { useState } from "react";
+import { Button } from "../ui/button";
 
 type CopyActionButtonProps = {
   shortUrl: string;
 };
 
-const DataTableCopyActionButton = (props: CopyActionButtonProps) => {
-  const { shortUrl } = props;
+const DataTableCopyActionButton = ({ shortUrl }: CopyActionButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
   const { copyToClipboard } = useCopyToClipboard();
 
-  const handleCopy = async (shortUrl: string) => {
+  let timeout: number;
+
+  const handleCopyClick = async (url: string) => {
     try {
-      const response = await copyToClipboard(shortUrl);
+      clearTimeout(timeout);
+      const response = await copyToClipboard(url);
       if (response) setIsCopied(true);
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         setIsCopied(false);
       }, 3000);
     } catch (error) {
@@ -24,12 +27,14 @@ const DataTableCopyActionButton = (props: CopyActionButtonProps) => {
   };
 
   return (
-    <button
-      className="bg-[#1c283fb0] p-3 rounded-full hover:bg-[#1c283f00]"
-      onClick={() => handleCopy(shortUrl)}
+    <Button
+      variant="ghost"
+      size="icon"
+      className="p-3"
+      onClick={() => handleCopyClick(shortUrl)}
     >
       <span>{isCopied ? <FileCheck2 size={16} /> : <Copy size={16} />}</span>
-    </button>
+    </Button>
   );
 };
 

@@ -31,11 +31,11 @@ const LoginRegisterModal = ({ type, isSideMenu }: Props) => {
         {!isSideMenu && (
           <DialogTrigger asChild>
             {type === "login" ? (
-              <Button className="flex gap-2 px-8 py-4 rounded-full bg-[#181e29] border border-[#353c4a]">
+              <Button variant={"outline"} className="flex gap-2 px-8 py-4 border">
                 Login <LogIn size={16} />
               </Button>
             ) : (
-              <Button className="flex gap-2 px-8 py-4 rounded-full">
+              <Button className="flex gap-2 px-8 py-4">
                 Register Now
               </Button>
             )}
@@ -50,7 +50,7 @@ const LoginRegisterModal = ({ type, isSideMenu }: Props) => {
             )}
           </DialogTrigger>
         )}
-        <DialogContent className="w-10/12 rounded-md">
+        <DialogContent className="w-10/12 rounded-md dark:text-white">
           <DialogHeader>
             <DialogTitle className=" text-center">
               {type === "login" ? "Welcome back!" : "Create your account!"}

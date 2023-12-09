@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 
 import SpinnerIcon from "@/components/icons/SpinnerIcon";
-import PrimaryButton from "@/components/buttons/PrimaryButton";
-import { Input } from "@/components/ui/input";
 import InputErrorMessage from "@/components/InputErrorMessage";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 import useGenerateShortenUrl from "@/utils/custom-hooks/useGenerateShortenUrl";
 import { validateUrl } from "@/utils/validate";
@@ -28,6 +28,9 @@ const MainShortenSection = ({ btnText }: InputProps) => {
   const { copyToClipboard } = useCopyToClipboard();
   const { generate } = useGenerateShortenUrl();
 
+  let copyTimeout: number;
+  let resultTimeout: number;
+
   const handleShortenUrl = async (event: FormEvent) => {
     event.preventDefault();
     if (!url) return;
@@ -39,8 +42,9 @@ const MainShortenSection = ({ btnText }: InputProps) => {
     const respone = await generate(url);
     setIsCopyMode(true);
     if (respone) {
+      clearTimeout(resultTimeout);
       setShortLink(respone.shortUrl);
-      setTimeout(() => {
+      resultTimeout = setTimeout(() => {
         setShortLink("");
         setUrl("");
         setIsCopyMode(false);
@@ -55,8 +59,9 @@ const MainShortenSection = ({ btnText }: InputProps) => {
     event.preventDefault();
     try {
       const response = await copyToClipboard(shortLink);
+      clearTimeout(copyTimeout);
       if (response) setIsCopied(true);
-      setTimeout(() => {
+      copyTimeout = setTimeout(() => {
         setIsCopied(false);
       }, 2000);
     } catch (error) {
@@ -76,11 +81,12 @@ const MainShortenSection = ({ btnText }: InputProps) => {
           onInput={() => setErrorMessage("")}
           value={isCopyMode ? shortLink : url}
         />
-        <PrimaryButton
+        <Button
+          variant="default"
           type="submit"
-          className="absolute right-2"
+          className="absolute right-2 rounded-full py-6 px-10 border-primary font-bold text-sm disabled:cursor-not-allowed lg:w-40"
           disabled={isCopyMode ? isCopied : isLoading || !url}
-          callback={isCopyMode ? handleCopy : handleShortenUrl}
+          onClick={isCopyMode ? handleCopy : handleShortenUrl}
         >
           <span className="hidden lg:flex justify-center items-center">
             {isCopyMode ? (
@@ -110,7 +116,7 @@ const MainShortenSection = ({ btnText }: InputProps) => {
               <ArrowRight size={20} />
             )}
           </span>
-        </PrimaryButton>
+        </Button>
       </form>
       <InputErrorMessage
         message={errorMsg}
