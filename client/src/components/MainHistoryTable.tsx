@@ -41,7 +41,7 @@ const MainHistoryTable = () => {
             alt={el.row.original.origUrl}
             className="h-6"
           />
-          <span className="">{el.row.original.origUrl}</span>
+          <span className="truncate">{el.row.original.origUrl}</span>
         </a>
       ),
     },
