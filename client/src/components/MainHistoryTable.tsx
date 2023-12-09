@@ -22,7 +22,7 @@ const MainHistoryTable = () => {
     { header: "Original Link", accessorKey: "origUrl" },
     { header: "Clicks", accessorKey: "clicks" },
     {
-      header: "Created",
+      header: "Date",
       accessorKey: "date",
       cell: (el) => {
         return new Date(el.row.original.date).toLocaleDateString();
