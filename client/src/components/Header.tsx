@@ -8,9 +8,9 @@ const Header = () => {
       <h1 className="font-extrabold bg-gradient-to-r from-[#eb568e] to-[#144ee3] text-transparent bg-clip-text uppercase">
         {BRAND_NAME}
       </h1>
-      <div className="hidden md:flex gap-4">
-        <LoginRegisterModal type="login" />
+      <div className="hidden lg:flex gap-4">
         <LoginRegisterModal type="register" />
+        <LoginRegisterModal type="login" />
       </div>
       <div className="flex flex-col lg:hidden">
         <HeaderMobileMenu />

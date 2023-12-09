@@ -13,7 +13,7 @@ const HeaderMobileMenu = () => {
       <DropdownMenuTrigger>
         <MenuIcon />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className=" flex flex-col gap-2 mt-6 w-48">
+      <DropdownMenuContent className="lg:hidden flex flex-col justify-evenly items-center mt-6 w-48 h-24">
         <LoginRegisterModal type="login" isSideMenu={true} />
         <LoginRegisterModal type="register" isSideMenu={true} />
       </DropdownMenuContent>

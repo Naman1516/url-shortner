@@ -27,85 +27,88 @@ const LoginRegisterModal = ({ type, isSideMenu }: Props) => {
 
   return (
     <Dialog>
+      {!isSideMenu && (
+        <DialogTrigger asChild>
+          {type === "login" ? (
+            <Button className="px-8 py-4 border h-12 text-sm">
+              Login <LogIn size={16} />
+            </Button>
+          ) : (
+            <Button variant={"outline"} className="px-8 py-4 h-12 text-sm">
+              Register Now
+            </Button>
+          )}
+        </DialogTrigger>
+      )}
+      {isSideMenu && (
+        <DialogTrigger asChild>
+          {type === "login" ? (
+            <Button className="w-full">Login</Button>
+          ) : (
+            <Button className="w-full">Register</Button>
+          )}
+        </DialogTrigger>
+      )}
       <form>
-        {!isSideMenu && (
-          <DialogTrigger asChild>
-            {type === "login" ? (
-              <Button variant={"outline"} className="flex gap-2 px-8 py-4 border">
-                Login <LogIn size={16} />
-              </Button>
-            ) : (
-              <Button className="flex gap-2 px-8 py-4">
-                Register Now
-              </Button>
-            )}
-          </DialogTrigger>
-        )}
-        {isSideMenu && (
-          <DialogTrigger asChild>
-            {type === "login" ? (
-              <Button className="w-full">Login</Button>
-            ) : (
-              <Button className="w-full">Register</Button>
-            )}
-          </DialogTrigger>
-        )}
-        <DialogContent className="w-10/12 rounded-md dark:text-white">
+        <DialogContent className="w-10/12 flex flex-col gap-y-6 rounded-md dark:text-white">
           <DialogHeader>
-            <DialogTitle className=" text-center">
+            <DialogTitle className=" text-center my-2 text-2xl">
               {type === "login" ? "Welcome back!" : "Create your account!"}
             </DialogTitle>
           </DialogHeader>
-          {type === "register" && (
-            <>
-              <LoginRegisterFormInput
-                type="text"
-                id="firstName"
-                label="First Name"
-                value={formData.firstName}
-                setValue={(value) =>
-                  setFormData({ ...formData, firstName: value })
-                }
-              />
-              <LoginRegisterFormInput
-                type="text"
-                id="lastName"
-                label="Last Name"
-                value={formData.lastName}
-                setValue={(value) =>
-                  setFormData({ ...formData, lastName: value })
-                }
-              />
-            </>
-          )}
-          <LoginRegisterFormInput
-            type="email"
-            id="email"
-            label="Email"
-            value={formData.email}
-            setValue={(value) => setFormData({ ...formData, email: value })}
-          />
-          <LoginRegisterFormInput
-            type="password"
-            id="password"
-            label="Password"
-            value={formData.password}
-            setValue={(value) => setFormData({ ...formData, password: value })}
-          />
-          {type === "register" && (
+          <div className="my-2 flex flex-col gap-6">
+            {type === "register" && (
+              <>
+                <LoginRegisterFormInput
+                  type="text"
+                  id="firstName"
+                  label="First Name"
+                  value={formData.firstName}
+                  setValue={(value) =>
+                    setFormData({ ...formData, firstName: value })
+                  }
+                />
+                <LoginRegisterFormInput
+                  type="text"
+                  id="lastName"
+                  label="Last Name"
+                  value={formData.lastName}
+                  setValue={(value) =>
+                    setFormData({ ...formData, lastName: value })
+                  }
+                />
+              </>
+            )}
+            <LoginRegisterFormInput
+              type="email"
+              id="email"
+              label="Email"
+              value={formData.email}
+              setValue={(value) => setFormData({ ...formData, email: value })}
+            />
             <LoginRegisterFormInput
               type="password"
-              id="confirmPassword"
-              label="Confirm Password"
-              value={formData.confirmPassword}
+              id="password"
+              label="Password"
+              value={formData.password}
               setValue={(value) =>
-                setFormData({ ...formData, confirmPassword: value })
+                setFormData({ ...formData, password: value })
               }
             />
-          )}
-
+            {type === "register" && (
+              <LoginRegisterFormInput
+                type="password"
+                id="confirmPassword"
+                label="Confirm Password"
+                value={formData.confirmPassword}
+                setValue={(value) =>
+                  setFormData({ ...formData, confirmPassword: value })
+                }
+              />
+            )}
+          </div>
           <DialogFooter>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full h-14">
               {type === "login" ? "Login" : "Register"}
             </Button>
           </DialogFooter>

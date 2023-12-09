@@ -76,7 +76,7 @@ const MainShortenSection = ({ btnText }: InputProps) => {
         <Input
           type="url"
           placeholder="Enter your link"
-          className="shorten-input"
+          className="shorten-input text-white"
           onChange={(event) => setUrl(event.target.value)}
           onInput={() => setErrorMessage("")}
           value={isCopyMode ? shortLink : url}
