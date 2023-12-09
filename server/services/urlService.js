@@ -5,7 +5,7 @@ import { redisClient } from "../utils/connectToRedis.js";
 const getAllUrlsService = async () => {
   const cachedUrls = await redisClient.get("allUrls");
   if (!cachedUrls) {
-    const urls = await Url.find().exec();
+    const urls = await Url.find().sort({ date: -1 }).exec();
     await redisClient.setEx("allUrls", 30, JSON.stringify(urls));
     return urls;
   } else {
