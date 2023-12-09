@@ -18,7 +18,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import DataTableFooterActionButtons from "./DataTableFooterActionButtons";
 
@@ -60,15 +60,18 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-row-reverse items-center py-4">
-        <Input
-          placeholder="Filter Results"
-          value={filtering}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setFiltering(event.target.value)
-          }
-          className="text-base w-full md:w-64"
-        />
+      <div className="flex justify-end items-center py-4">
+        <span className="relative flex items-center">
+          <Search size={16} className="absolute left-5" />
+          <Input
+            placeholder="Search"
+            value={filtering}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setFiltering(event.target.value)
+            }
+            className="text-base w-full pl-12 md:w-64"
+          />
+        </span>
       </div>
       <Table className="border table-auto lg:table-fixed">
         <TableHeader>
@@ -77,7 +80,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
-                  className="font-semi-bold cursor-pointer"
+                  className="font-semi-bold cursor-pointer text-white"
                   onClick={header.column.getToggleSortingHandler()}
                 >
                   {header.isPlaceholder ? null : (
