@@ -2,7 +2,7 @@ import Url from "../models/urlModel.js";
 const BASE_URL = process.env.BASE_URL;
 
 const getAllUrlsService = async () => {
-  return await Url.find().exec();
+  return await Url.find().sort({ date: -1 }).exec();
 };
 
 const findUrlByOriginal = async (origUrl) => {
