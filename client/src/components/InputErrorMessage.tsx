@@ -1,3 +1,6 @@
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
 type ErrorMessageProps = {
   message: string;
   className?: string;
@@ -5,7 +8,14 @@ type ErrorMessageProps = {
 
 const InputErrorMessage = (props: ErrorMessageProps) => {
   const { message, className } = props;
-  return <p className={`${className}`}>{message}</p>;
+  return (
+    <Alert variant="destructive" className={`border-0 ${className}`}>
+      <AlertDescription className="flex items-center gap-2">
+        <AlertCircle size={15} />
+        {message}
+      </AlertDescription>
+    </Alert>
+  );
 };
 
 export default InputErrorMessage;
