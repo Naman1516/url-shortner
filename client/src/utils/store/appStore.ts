@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import urlReducer from "@/utils/store/urlSlice";
-import globalReducer from "@/utils/store/globalSlice";
+
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 export const appStore = configureStore({
   reducer: {
     url: urlReducer,
-    global: globalReducer,
   },
 });
 
