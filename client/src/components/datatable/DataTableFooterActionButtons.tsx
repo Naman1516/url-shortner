@@ -23,7 +23,6 @@ const DataTableFooterActionButtons = ({
       <Button
         variant="outline"
         size="sm"
-        className="bg-transparent"
         onClick={() => setPageIndex(0)}
         disabled={!getCanPreviousPage()}
       >
@@ -32,7 +31,6 @@ const DataTableFooterActionButtons = ({
       <Button
         variant="outline"
         size="sm"
-        className="bg-transparent"
         onClick={() => previousPage()}
         disabled={!getCanPreviousPage()}
       >
@@ -41,7 +39,6 @@ const DataTableFooterActionButtons = ({
       <Button
         variant="outline"
         size="sm"
-        className="bg-transparent"
         onClick={() => nextPage()}
         disabled={!getCanNextPage()}
       >
@@ -50,7 +47,6 @@ const DataTableFooterActionButtons = ({
       <Button
         variant="outline"
         size="sm"
-        className="bg-transparent"
         onClick={() => setPageIndex(getPageCount() - 1)}
         disabled={!getCanNextPage()}
       >
