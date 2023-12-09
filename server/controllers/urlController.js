@@ -5,7 +5,7 @@ import { validateUrl } from "../utils/utils.js";
 const getAllUrls = async (req, res, next) => {
   try {
     const data = await UrlService.getAllUrlsService();
-    res.json(data);
+    res.json({ status: "success", data });
   } catch (error) {
     next(error);
   }
@@ -13,7 +13,6 @@ const getAllUrls = async (req, res, next) => {
 
 const shortenUrl = async (req, res) => {
   const { origUrl } = req.body;
-
   if (validateUrl(origUrl)) {
     try {
       let url = await UrlService.findUrlByOriginal(origUrl);
@@ -28,18 +27,16 @@ const shortenUrl = async (req, res) => {
       }
     } catch (err) {
       console.error(err);
-      res.status(500).json("Server Error");
+      res.status(500).json({ status: "failed", message: "Server Error" });
     }
   } else {
-    res.status(400).json("Invalid Original Url");
+    res.status(400).json({ status: "failed", message: "Invalid Url!" });
   }
 };
 
 const redirectToOriginalUrl = async (req, res) => {
   const { urlId } = req.params;
-  console.log({ urlId });
   const details = await UrlService.findByUrlId(urlId);
-  console.log({ details });
   if (details) {
     const { origUrl } = details;
     await UrlService.incrementClickCount(urlId);
