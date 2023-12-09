@@ -117,7 +117,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className={`text-ellipsis overflow-clip max-w-[15rem]`}
+                    className={`text-ellipsis overflow-clip max-w-xs lg:max-w-[15rem]`}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
