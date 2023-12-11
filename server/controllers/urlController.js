@@ -22,7 +22,7 @@ const shortenUrl = async (req, res) => {
   if (validateUrl(origUrl)) {
     try {
       let url = await findUrlByOriginal(origUrl);
-      console.log({ url });
+
       if (url) {
         res.json(url);
       } else {
