@@ -1,11 +1,11 @@
-import { MenuIcon } from "lucide-react";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import LoginRegisterModal from "./LoginRegisterModal";
+import LoginRegisterModal from "@/components/LoginRegisterModal";
+
+import { MenuIcon } from "lucide-react";
 
 const HeaderMobileMenu = () => {
   return (

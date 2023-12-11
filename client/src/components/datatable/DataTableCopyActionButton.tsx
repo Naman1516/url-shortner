@@ -1,7 +1,10 @@
-import useCopyToClipboard from "@/utils/custom-hooks/useCopyToClipboard";
-import { Copy, FileCheck2 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "../ui/button";
+
+import { Button } from "@/components/ui/button";
+
+import useCopyToClipboard from "@/utils/custom-hooks/useCopyToClipboard";
+
+import { Copy, FileCheck2 } from "lucide-react";
 
 type CopyActionButtonProps = {
   shortUrl: string;
