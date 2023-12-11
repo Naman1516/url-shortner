@@ -1,5 +1,6 @@
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
-import { LogIn } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -8,8 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import LoginRegisterFormInput from "./LoginRegisterFormInput";
+import LoginRegisterFormInput from "@/components/LoginRegisterFormInput";
+
+import { LogIn } from "lucide-react";
+
 
 type Props = {
   type: "login" | "register";

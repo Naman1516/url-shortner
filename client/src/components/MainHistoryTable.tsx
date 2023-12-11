@@ -1,9 +1,11 @@
+import DataTable from "@/components/datatable/DataTable";
+import DataTableCopyActionButton from "@/components/datatable/DataTableCopyActionButton";
+import { ColumnDef } from "@tanstack/react-table";
+
 import { AllUrls } from "@/interfaces/allUrls";
 import { UrlObject } from "@/interfaces/urlObject";
+
 import { useAppSelector } from "@/utils/store/appStore";
-import { ColumnDef } from "@tanstack/react-table";
-import DataTable from "./datatable/DataTable";
-import DataTableCopyActionButton from "@/components/datatable/DataTableCopyActionButton";
 import { FAVICON_URL } from "@/utils/constants/constants";
 
 const MainHistoryTable = () => {

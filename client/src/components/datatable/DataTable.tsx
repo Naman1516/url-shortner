@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Table,
   TableBody,
@@ -7,7 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/tanstack/table";
-import { UrlObject } from "@/interfaces/urlObject";
+import { Input } from "@/components/ui/input";
+import DataTableFooterActionButtons from "@/components/datatable/DataTableFooterActionButtons";
 import {
   useReactTable,
   getCoreRowModel,
@@ -18,9 +20,10 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
+
+import { UrlObject } from "@/interfaces/urlObject";
+
 import { ChevronDown, ChevronUp, Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import DataTableFooterActionButtons from "./DataTableFooterActionButtons";
 
 type DataTableProps = {
   data: Array<UrlObject>;
