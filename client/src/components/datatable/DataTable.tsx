@@ -119,9 +119,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell>No Results.</TableCell>
-            </TableRow>
+            <TableCell colSpan={columns.length} className="text-center">
+              No results.
+            </TableCell>
           )}
         </TableBody>
       </Table>
