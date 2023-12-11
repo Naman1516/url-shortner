@@ -30,11 +30,11 @@ const LoginRegisterModal = ({ type, isSideMenu }: Props) => {
       {!isSideMenu && (
         <DialogTrigger asChild>
           {type === "login" ? (
-            <Button className="px-8 py-4 border h-12 text-sm">
+            <Button className="px-8 py-4 border h-12 text-sm font-bold">
               Login <LogIn size={16} />
             </Button>
           ) : (
-            <Button variant={"outline"} className="px-8 py-4 h-12 text-sm">
+            <Button variant={"outline"} className="px-8 py-4 h-12 text-sm font-bold">
               Register Now
             </Button>
           )}

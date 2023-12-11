@@ -76,7 +76,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
       <Table className="border table-auto lg:table-fixed">
         <TableHeader>
           {getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="bg-secondary">
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
@@ -119,9 +119,9 @@ const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell>No Results.</TableCell>
-            </TableRow>
+            <TableCell colSpan={columns.length} className="text-center">
+              No results.
+            </TableCell>
           )}
         </TableBody>
       </Table>
