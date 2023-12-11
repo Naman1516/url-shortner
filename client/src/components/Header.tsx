@@ -8,7 +8,7 @@ const Header = () => {
       <h1 className="font-extrabold bg-gradient-to-r from-[#eb568e] to-[#144ee3] text-transparent bg-clip-text uppercase">
         {BRAND_NAME}
       </h1>
-      <div className="hidden lg:flex gap-4">
+      <div className="hidden lg:flex gap-2">
         <LoginRegisterModal type="register" />
         <LoginRegisterModal type="login" />
       </div>
